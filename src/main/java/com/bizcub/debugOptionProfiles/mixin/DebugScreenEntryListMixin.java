@@ -18,9 +18,9 @@ public abstract class DebugScreenEntryListMixin {
     @Mutable @Shadow @Final private File debugProfileFile;
 
     @Inject(method = "load", at = @At("HEAD"))
-    private void inj(CallbackInfo ci) {
+    private void changeProfileFile(CallbackInfo ci) {
         if (Utils.isMyScreenOpen) {
-            debugProfileFile = Utils.getConfigPath().resolve(Utils.profileName + ".json").toFile();
+            debugProfileFile = Utils.getConfigPath().resolve(Utils.profileName + Utils.configFormat).toFile();
         }
     }
 }

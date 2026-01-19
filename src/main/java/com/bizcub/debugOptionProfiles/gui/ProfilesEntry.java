@@ -52,7 +52,7 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
         this.removebutton = Button.builder(
                         Component.literal("❌"),
                         (button) -> {
-                            Utils.getConfigPath().resolve(name.getString() + ".json").toFile().delete();
+                            Utils.getConfigPath().resolve(name.getString() + Utils.configFormat).toFile().delete();
                             minecraft.setScreen(new ProfilesScreen(minecraft.screen));
                         })
                 .width(20)
@@ -80,6 +80,10 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
         guiGraphics.drawString(minecraft.font, this.name, this.getContentX(), this.getContentYMiddle() - 4, -1);
     }
 
+    private ImmutableList getButtons() {
+        return ImmutableList.of(this.editButton, this.loadButton, this.removebutton);
+    }
+
     @Override
     public @NonNull List<? extends NarratableEntry> narratables() {
         return getButtons();
@@ -90,15 +94,11 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
         return getButtons();
     }
 
-    private ImmutableList getButtons() {
-        return ImmutableList.of(this.editButton, this.loadButton, this.removebutton);
-    }
-
     private void rewriteMainFile() {
-        Path file1 = Utils.getConfigPath().resolve(name.getString() + ".json");
-        Path file2 = Path.of("debug-profile.json");
+        Path path1 = Utils.getConfigPath().resolve(name.getString() + Utils.configFormat);
+        Path path2 = Path.of(Utils.mainFileName);
         try {
-            Files.copy(file1, file2, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(path1, path2, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

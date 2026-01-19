@@ -12,6 +12,7 @@ public class Utils {
     public static String editedProfileName;
     public static Component activeButton = Component.empty();
     public static String configFormat = ".json";
+    public static String mainFileName = "debug-profile.json";
 
     public static Path getConfigPath() {
         Path path = Path.of("config/debug-option-profiles");

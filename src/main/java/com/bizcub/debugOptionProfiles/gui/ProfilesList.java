@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class ProfilesList extends ContainerObjectSelectionList<ProfilesEntry> {
 
-    public ProfilesList(ProfilesScreen screen, Minecraft minecraft) {
-        super(minecraft, screen.width, screen.layout.getContentHeight(), screen.layout.getHeaderHeight(), 20);
+    public ProfilesList(ProfilesScreen screen) {
+        super(Minecraft.getInstance(), screen.width, screen.layout.getContentHeight(), screen.layout.getHeaderHeight(), 20);
         refreshEntries();
     }
 
@@ -27,7 +27,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesEntry> {
     }
 
     public int scrollBarX() {
-        return super.scrollBarX() + 15;
+        return super.scrollBarX() + 20;
     }
 
     public int getRowWidth() {

@@ -26,7 +26,7 @@ public class ProfilesScreen extends OptionsSubScreen {
 
     protected void addContents() {
         this.layout.setHeaderHeight(33);
-        this.list = this.layout.addToContents(new ProfilesList(this, this.minecraft));
+        this.list = this.layout.addToContents(new ProfilesList(this));
     }
 
     protected void addFooter() {
@@ -36,7 +36,7 @@ public class ProfilesScreen extends OptionsSubScreen {
                         Component.literal("add"),
                         (button) -> {
                             for (int i = 1; i > 0; i++) {
-                                File file = Utils.getConfigPath().resolve("Profile " + i + ".json").toFile();
+                                File file = Utils.getConfigPath().resolve("Profile " + i + Utils.configFormat).toFile();
                                 if (!file.exists()) {
                                     try {
                                         file.createNewFile();

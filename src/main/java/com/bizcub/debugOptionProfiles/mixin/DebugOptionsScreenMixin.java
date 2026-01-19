@@ -30,7 +30,7 @@ public abstract class DebugOptionsScreenMixin extends Screen {
     }
 
     @Inject(method = "init", at = @At("TAIL"))
-    private void init(CallbackInfo ci) {
+    private void addPresetsButton(CallbackInfo ci) {
         if (!Utils.isMyScreenOpen) {
             this.addRenderableWidget(Button
                     .builder(Component.literal("presets"),
@@ -97,6 +97,6 @@ public abstract class DebugOptionsScreenMixin extends Screen {
 
     @Unique
     private static Path getConfigFile(String path) {
-        return Utils.getConfigPath().resolve(path + ".json");
+        return Utils.getConfigPath().resolve(path + Utils.configFormat);
     }
 }
