@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.network.chat.Component;
 
-import java.io.File;
+import java.util.ArrayList;
 
 public class ProfilesList extends ContainerObjectSelectionList<ProfilesEntry> {
 
@@ -17,15 +17,11 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesEntry> {
     public void refreshEntries() {
         this.clearEntries();
 
-        File[] files = Utils.getConfigPath().toFile().listFiles();
-        String jsonFormat = ".json";
-
-        if (files != null) {
-            for (File file : files) {
-                if (file.getName().endsWith(jsonFormat)) {
-                    String name = file.getName().substring(0, file.getName().lastIndexOf(jsonFormat));
-                    addEntry(new ProfilesEntry(this, Component.literal(name)));
-                }
+        ArrayList<String> profiles = Utils.getExistedProfileNames();
+        for (String profile : profiles) {
+            if (profile.endsWith(Utils.configFormat)) {
+                String name = profile.substring(0, profile.lastIndexOf(Utils.configFormat));
+                addEntry(new ProfilesEntry(this, Component.literal(name)));
             }
         }
     }
