@@ -9,6 +9,9 @@ import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
+import java.io.File;
+import java.io.IOException;
+
 public class ProfilesScreen extends OptionsSubScreen {
     private ProfilesList list;
 
@@ -24,7 +27,6 @@ public class ProfilesScreen extends OptionsSubScreen {
     protected void addContents() {
         this.layout.setHeaderHeight(33);
         this.list = this.layout.addToContents(new ProfilesList(this, this.minecraft));
-        repositionElements();
     }
 
     protected void addFooter() {
@@ -32,7 +34,21 @@ public class ProfilesScreen extends OptionsSubScreen {
         linearLayout.addChild(
                 Button.builder(
                         Component.literal("add"),
-                        (button) -> onClose()
+                        (button) -> {
+                            for (int i = 1; i > 0; i++) {
+                                File file = Utils.getConfigPath().resolve("Profile " + i + ".json").toFile();
+                                if (!file.exists()) {
+                                    try {
+                                        file.createNewFile();
+                                        onClose();
+                                        minecraft.setScreen(new ProfilesScreen(this));
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
                 ).build()
         );
         linearLayout.addChild(

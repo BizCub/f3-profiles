@@ -35,6 +35,6 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesEntry> {
     }
 
     public int getRowWidth() {
-        return 340;
+        return 200;
     }
 }

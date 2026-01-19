@@ -1,5 +1,6 @@
 package com.bizcub.debugOptionProfiles.gui;
 
+import com.bizcub.debugOptionProfiles.Utils;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -8,12 +9,18 @@ import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.network.chat.Component;
+import org.jspecify.annotations.NonNull;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEntry> {
-    private Minecraft minecraft = Minecraft.getInstance();
+    private final Minecraft minecraft = Minecraft.getInstance();
     private final Component name;
+    private final Button removebutton;
     private final Button editButton;
     private final Button loadButton;
     private final ProfilesList profilesList;
@@ -22,43 +29,78 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
         this.name = name;
         this.profilesList = profilesList;
 
-        this.editButton = Button.builder(
-                        Component.literal("edit"),
-                        (button) -> minecraft.setScreen(new ProfileEditScreen(minecraft.screen, name, false)))
-                .width(75)
-                .build();
-
         this.loadButton = Button.builder(
-                        Component.literal("load"),
+                        Component.literal("✔"),
                         (button) -> {
-                            button.active = false;
+                            Utils.activeButton = name;
+                            rewriteMainFile();
                             minecraft.setScreen(new ProfileEditScreen(minecraft.screen, name, true));
                         })
-                .width(75)
+                .width(20)
                 .build();
+
+        this.editButton = Button.builder(
+                        Component.literal("✎"),
+                        (button) -> {
+                            Utils.activeButton = name;
+                            rewriteMainFile();
+                            minecraft.setScreen(new ProfileEditScreen(minecraft.screen, name, false));
+                        })
+                .width(20)
+                .build();
+
+        this.removebutton = Button.builder(
+                        Component.literal("❌"),
+                        (button) -> {
+                            Utils.getConfigPath().resolve(name.getString() + ".json").toFile().delete();
+                            minecraft.setScreen(new ProfilesScreen(minecraft.screen));
+                        })
+                .width(20)
+                .build();
+
+        if (Utils.activeButton.equals(name)) {
+            loadButton.active = false;
+        }
     }
 
     @Override
-    public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean bl, float tickDelta) {
-        int posX = this.profilesList.scrollBarX() - this.loadButton.getWidth() - 10;
+    public void renderContent(@NonNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean bl, float tickDelta) {
+        int posX = this.profilesList.scrollBarX() - this.removebutton.getWidth() - 20;
         int posY = this.getContentY() - 2;
+
+        this.removebutton.setPosition(posX, posY);
+        this.removebutton.render(guiGraphics, mouseX, mouseY, tickDelta);
 
         this.editButton.setPosition(posX - this.editButton.getWidth(), posY);
         this.editButton.render(guiGraphics, mouseX, mouseY, tickDelta);
 
-        this.loadButton.setPosition(posX, posY);
+        this.loadButton.setPosition(posX - this.loadButton.getWidth() * 2, posY);
         this.loadButton.render(guiGraphics, mouseX, mouseY, tickDelta);
 
         guiGraphics.drawString(minecraft.font, this.name, this.getContentX(), this.getContentYMiddle() - 4, -1);
     }
 
     @Override
-    public List<? extends NarratableEntry> narratables() {
-        return ImmutableList.of(this.editButton, this.loadButton);
+    public @NonNull List<? extends NarratableEntry> narratables() {
+        return getButtons();
     }
 
     @Override
-    public List<? extends GuiEventListener> children() {
-        return ImmutableList.of(this.editButton, this.loadButton);
+    public @NonNull List<? extends GuiEventListener> children() {
+        return getButtons();
+    }
+
+    private ImmutableList getButtons() {
+        return ImmutableList.of(this.editButton, this.loadButton, this.removebutton);
+    }
+
+    private void rewriteMainFile() {
+        Path file1 = Utils.getConfigPath().resolve(name.getString() + ".json");
+        Path file2 = Path.of("debug-profile.json");
+        try {
+            Files.copy(file1, file2, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
