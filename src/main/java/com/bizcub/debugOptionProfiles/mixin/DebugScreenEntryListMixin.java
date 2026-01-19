@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.File;
-import java.nio.file.Path;
 
 @Mixin(DebugScreenEntryList.class)
 public abstract class DebugScreenEntryListMixin {
@@ -21,8 +20,7 @@ public abstract class DebugScreenEntryListMixin {
     @Inject(method = "load", at = @At("HEAD"))
     private void inj(CallbackInfo ci) {
         if (Utils.isMyScreenOpen) {
-            Path path = Utils.getConfigPath();
-            debugProfileFile = path.resolve(Utils.profileName + ".json").toFile();
+            debugProfileFile = Utils.getConfigPath().resolve(Utils.profileName + ".json").toFile();
         }
     }
 }

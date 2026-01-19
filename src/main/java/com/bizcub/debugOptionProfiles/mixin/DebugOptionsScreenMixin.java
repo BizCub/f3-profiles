@@ -59,11 +59,6 @@ public abstract class DebugOptionsScreenMixin extends Screen {
         return Button.builder(component, onPress);
     }
 
-    @Inject(method = "renderBlurredBackground", at = @At("HEAD"))
-    private void test(CallbackInfo ci) {
-        getOptionList().updateSearch("");
-    }
-
     @Unique
     private static Path getConfigFile(String path) {
         return Utils.getConfigPath().resolve(path + ".json");
