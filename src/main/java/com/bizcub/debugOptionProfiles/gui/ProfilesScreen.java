@@ -1,5 +1,6 @@
 package com.bizcub.debugOptionProfiles.gui;
 
+import com.bizcub.debugOptionProfiles.Utils;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
@@ -14,6 +15,11 @@ public class ProfilesScreen extends OptionsSubScreen {
     public ProfilesScreen(Screen parent) {
         super(parent, null, Component.literal("MYS"));
         this.parent = parent;
+        Utils.isMyScreenOpen = true;
+    }
+
+    @Override
+    protected void addOptions() {
     }
 
     protected void addContents() {
@@ -25,14 +31,25 @@ public class ProfilesScreen extends OptionsSubScreen {
         LinearLayout linearLayout = this.layout.addToFooter(LinearLayout.horizontal().spacing(8));
         linearLayout.addChild(
                 Button.builder(
-                                CommonComponents.GUI_DONE,
-                                (button -> this.onClose()))
-                        .build()
+                        Component.literal("add"),
+                        (button) -> onClose()
+                ).build()
+        );
+        linearLayout.addChild(
+                Button.builder(
+                        CommonComponents.GUI_DONE,
+                        (button) -> onClose()
+                ).build()
         );
     }
 
-    @Override
-    protected void addOptions() {
+    public void onClose() {
+        super.onClose();
+        Utils.isMyScreenOpen = false;
+    }
 
+    protected void repositionElements() {
+        this.layout.arrangeElements();
+        this.list.updateSize(this.width, this.layout);
     }
 }

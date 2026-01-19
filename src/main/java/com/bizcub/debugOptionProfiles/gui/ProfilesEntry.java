@@ -24,19 +24,17 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
 
         this.editButton = Button.builder(
                         Component.literal("edit"),
-                        (button) -> minecraft.setScreen(new ProfileEditScreen(minecraft.screen)))
-                .size(75, 20)
+                        (button) -> minecraft.setScreen(new ProfileEditScreen(minecraft.screen, name, false)))
+                .width(75)
                 .build();
 
         this.loadButton = Button.builder(
                         Component.literal("load"),
                         (button) -> {
-//                            Profiles.loadProfile(profileName.getString());
-//                            OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Loaded through button", profileName);
-//                                ProfilesList.this.checkEntriesLoaded();
-//                                button.active = false;
+                            button.active = false;
+                            minecraft.setScreen(new ProfileEditScreen(minecraft.screen, name, true));
                         })
-                .size(75, 20)
+                .width(75)
                 .build();
     }
 

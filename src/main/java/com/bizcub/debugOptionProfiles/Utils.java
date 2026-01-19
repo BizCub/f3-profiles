@@ -1,12 +1,21 @@
 package com.bizcub.debugOptionProfiles;
 
-public class Utils {
+import com.bizcub.debugOptionProfiles.gui.ProfileEditScreen;
+import com.bizcub.debugOptionProfiles.gui.ProfilesScreen;
 
-    public static String getTranslationKey(String key) {
-        if (key.contains("key='")) {
-            key = key.substring(key.indexOf("key='")+5);
-            return key.substring(0, key.indexOf("'"));
-        }
-        return key;
+import java.nio.file.Path;
+
+public class Utils {
+    public static boolean isMyScreenOpen = false;
+    public static String profileName;
+    public static String editedProfileName;
+
+    public static ProfilesScreen profilesScreen;
+    public static ProfileEditScreen profileEditScreen;
+
+    public static Path getConfigPath() {
+        Path path = Path.of("config/debug-option-profiles");
+        path.toFile().mkdirs();
+        return path;
     }
 }

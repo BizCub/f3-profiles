@@ -1,57 +1,29 @@
 package com.bizcub.debugOptionProfiles.gui;
 
 import com.bizcub.debugOptionProfiles.Utils;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.debug.DebugScreenProfile;
-import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
-import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.debug.DebugOptionsScreen;
-import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
 
 public class ProfileEditScreen extends DebugOptionsScreen {
-    private final Screen parent;
+    public static Screen parent;
+    private final boolean close;
 
-    public ProfileEditScreen(Screen parent) {
-        this.parent = parent;
-    }
-
-    @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-        super.render(graphics, mouseX, mouseY, delta);
+    public ProfileEditScreen(Screen screen, Component entryName, boolean closeImmediately) {
+        parent = screen;
+        this.close = closeImmediately;
+        Utils.profileName = entryName.getString();
     }
 
     public void init() {
         super.init();
+        minecraft.debugEntries.load();
+        if (close) onClose();
+    }
 
-        for(GuiEventListener guiEventListener : this.children()) {
-            if (guiEventListener instanceof AbstractWidget abstractWidget) {
-                if (Utils.getTranslationKey(abstractWidget.getMessage().toString()).equals(DebugScreenProfile.DEFAULT.translationKey()) ||
-                Utils.getTranslationKey(abstractWidget.getMessage().toString()).equals(DebugScreenProfile.PERFORMANCE.translationKey()) ||
-                Utils.getTranslationKey(abstractWidget.getMessage().toString()).equals(Utils.getTranslationKey(CommonComponents.GUI_DONE.getContents().toString()))) {
-                    abstractWidget.visible = false;
-                }
-            }
-        }
-
-        HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 61, 33);
-        LinearLayout linearLayout = layout.addToFooter(LinearLayout.horizontal().spacing(8));
-        linearLayout.addChild(
-                Button.builder(
-                                CommonComponents.GUI_DONE,
-                                (button -> this.minecraft.setScreen(parent)))
-                        .build()
-        );
-        linearLayout.addChild(
-                Button.builder(
-                                CommonComponents.GUI_CANCEL,
-                                (button -> this.minecraft.setScreen(parent)))
-                        .build()
-        );
-        layout.arrangeElements();
-        layout.visitWidgets(this::addRenderableWidget);
+    @Override
+    public void onClose() {
+        this.minecraft.setScreen(parent);
+        super.onClose();
     }
 }
