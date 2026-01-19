@@ -19,7 +19,8 @@ stonecutter {
         val fb = "fabric"; val fr = "forge"; val nf = "neoforge"
         fun match(version: String, vararg loaders: String) = loaders
             .forEach { version("$version-$it", version) }
-        match("1.21.11", fb)
+        match("1.21.11", fb, fr, nf)
+        match("1.21.10", fb, fr, nf)
     }
 }
 

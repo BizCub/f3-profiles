@@ -9,7 +9,6 @@ import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.network.chat.Component;
-import org.jspecify.annotations.NonNull;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -64,7 +63,7 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
     }
 
     @Override
-    public void renderContent(@NonNull GuiGraphics guiGraphics, int mouseX, int mouseY, boolean bl, float tickDelta) {
+    public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean bl, float tickDelta) {
         int posX = this.profilesList.scrollBarX() - this.removebutton.getWidth() - 20;
         int posY = this.getContentY() - 2;
 
@@ -85,12 +84,12 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
     }
 
     @Override
-    public @NonNull List<? extends NarratableEntry> narratables() {
+    public List<? extends NarratableEntry> narratables() {
         return getButtons();
     }
 
     @Override
-    public @NonNull List<? extends GuiEventListener> children() {
+    public List<? extends GuiEventListener> children() {
         return getButtons();
     }
 
