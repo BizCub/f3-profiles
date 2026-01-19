@@ -23,7 +23,7 @@ public class ProfileEditScreen extends DebugOptionsScreen {
 
     @Override
     public void onClose() {
-        this.minecraft.setScreen(parent);
         super.onClose();
+        this.minecraft.setScreen(new ProfilesScreen(this));
     }
 }

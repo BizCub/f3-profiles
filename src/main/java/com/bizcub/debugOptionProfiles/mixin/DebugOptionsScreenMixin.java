@@ -1,7 +1,6 @@
 package com.bizcub.debugOptionProfiles.mixin;
 
 import com.bizcub.debugOptionProfiles.Utils;
-import com.bizcub.debugOptionProfiles.gui.ProfileEditScreen;
 import com.bizcub.debugOptionProfiles.gui.ProfilesScreen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -47,14 +46,14 @@ public abstract class DebugOptionsScreenMixin extends Screen {
             addRenderableWidget(searchBox);
 
             return Button.builder(component, button -> {
-                Utils.editedProfileName = searchBox.getValue();
-                this.onClose();
-                this.minecraft.setScreen(ProfileEditScreen.parent);
                 this.minecraft.debugEntries.save();
 
+                Utils.editedProfileName = searchBox.getValue();
                 Path path1 = getConfigFile(Utils.profileName);
                 Path path2 = getConfigFile(Utils.editedProfileName);
                 path1.toFile().renameTo(path2.toFile());
+
+                this.minecraft.setScreen(new ProfilesScreen(this));
             });
         }
         return Button.builder(component, onPress);
