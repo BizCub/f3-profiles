@@ -33,7 +33,7 @@ public abstract class DebugOptionsScreenMixin extends Screen {
     private void addPresetsButton(CallbackInfo ci) {
         if (!Utils.isMyScreenOpen) {
             this.addRenderableWidget(Button
-                    .builder(Component.literal("presets"),
+                    .builder(Utils.getTranslateComponent("profile-edit-screen.presets"),
                             (button) -> this.minecraft.setScreen(new ProfilesScreen(this)))
                     .bounds(8, 8, 50, 20)
                     .build());

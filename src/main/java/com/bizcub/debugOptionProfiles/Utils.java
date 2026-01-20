@@ -30,4 +30,8 @@ public class Utils {
         }
         return profiles;
     }
+
+    public static Component getTranslateComponent(String key) {
+        return Component.translatable("gui.debug-option-profiles." + key);
+    }
 }

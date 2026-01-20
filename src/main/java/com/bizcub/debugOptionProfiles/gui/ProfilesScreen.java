@@ -7,7 +7,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.debug.DebugOptionsScreen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +15,7 @@ public class ProfilesScreen extends OptionsSubScreen {
     private ProfilesList list;
 
     public ProfilesScreen(Screen parent) {
-        super(parent, null, Component.literal("ProfilesScreen"));
+        super(parent, null, Utils.getTranslateComponent("profiles-screen"));
         Utils.isMyScreenOpen = true;
     }
 
@@ -33,10 +32,10 @@ public class ProfilesScreen extends OptionsSubScreen {
         LinearLayout linearLayout = this.layout.addToFooter(LinearLayout.horizontal().spacing(8));
         linearLayout.addChild(
                 Button.builder(
-                        Component.literal("add"),
+                        Utils.getTranslateComponent("profiles-screen.add"),
                         (button) -> {
                             for (int i = 1; i > 0; i++) {
-                                File file = Utils.getConfigPath().resolve("Profile " + i + Utils.configFormat).toFile();
+                                File file = Utils.getConfigPath().resolve(Utils.getTranslateComponent("profile").getString() + " " + i + Utils.configFormat).toFile();
                                 if (!file.exists()) {
                                     try {
                                         file.createNewFile();

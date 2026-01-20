@@ -64,7 +64,7 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
 
     @Override
     public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean bl, float tickDelta) {
-        int posX = this.profilesList.scrollBarX() - this.removebutton.getWidth() - 20;
+        int posX = this.profilesList.scrollBarX() - this.removebutton.getWidth() - 30;
         int posY = this.getContentY() - 2;
 
         this.removebutton.setPosition(posX, posY);
