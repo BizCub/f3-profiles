@@ -22,8 +22,8 @@ import java.util.List;
 @Mixin(DebugOptionsScreen.class)
 public abstract class DebugOptionsScreenMixin extends Screen {
 
-    @Unique Button doneButton;
-    @Unique EditBox searchBox;
+    @Unique Button debugScreenOptionProfiles$doneButton;
+    @Unique EditBox debugScreenOptionProfiles$searchBox;
 
     protected DebugOptionsScreenMixin(Component component) {
         super(component);
@@ -42,61 +42,61 @@ public abstract class DebugOptionsScreenMixin extends Screen {
 
     @Inject(method = "renderBlurredBackground", at = @At("HEAD"))
     private void editBoxError(CallbackInfo ci) {
-        if (this.searchBox != null) {
+        if (this.debugScreenOptionProfiles$searchBox != null) {
             ArrayList<String> prohibitedSymbols = new ArrayList<>(List.of("\\", "/", ":", "*", "?", "\"", "<", ">", "|"));
             ArrayList<String> profiles = Utils.getExistedProfileNames();
             profiles.remove(Utils.profileName + Utils.configFormat);
 
-            doneButton.active = true;
-            searchBox.setTextColor(0xffffffff);
+            if (debugScreenOptionProfiles$doneButton != null) debugScreenOptionProfiles$doneButton.active = true;
+            debugScreenOptionProfiles$searchBox.setTextColor(0xffffffff);
 
             for (String symbol : prohibitedSymbols) {
-                if (searchBox.getValue().contains(symbol)) {
-                    setFieldTextRed();
+                if (debugScreenOptionProfiles$searchBox.getValue().contains(symbol)) {
+                    debugScreenOptionProfiles$setFieldTextRed();
                 }
             }
             for (String profile : profiles) {
                 String name = profile.substring(0, profile.lastIndexOf(Utils.configFormat));
-                if (searchBox.getValue().equals(name)) {
-                    setFieldTextRed();
+                if (debugScreenOptionProfiles$searchBox.getValue().equals(name)) {
+                    debugScreenOptionProfiles$setFieldTextRed();
                 }
             }
         }
     }
 
     @Unique
-    private void setFieldTextRed() {
-        doneButton.active = false;
-        searchBox.setTextColor(0xffff5555);
+    private void debugScreenOptionProfiles$setFieldTextRed() {
+        debugScreenOptionProfiles$doneButton.active = false;
+        debugScreenOptionProfiles$searchBox.setTextColor(0xffff5555);
     }
 
     @Redirect(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/Button$Builder;build()Lnet/minecraft/client/gui/components/Button;"))
     private Button doneButtonInject(Button.Builder instance) {
         if (Utils.isMyScreenOpen) {
-            searchBox = new EditBox(minecraft.font, width / 2 - 145, 8, 100, 20, Component.empty());
-            searchBox.setValue(Utils.profileName);
-            addRenderableWidget(searchBox);
+            debugScreenOptionProfiles$searchBox = new EditBox(minecraft.font, width / 2 - 145, 8, 100, 20, Component.empty());
+            debugScreenOptionProfiles$searchBox.setValue(Utils.profileName);
+            addRenderableWidget(debugScreenOptionProfiles$searchBox);
 
-            doneButton = Button.builder(
+            debugScreenOptionProfiles$doneButton = Button.builder(
                     CommonComponents.GUI_DONE,
                     (button) -> {
                         minecraft.debugEntries.save();
 
-                        Utils.editedProfileName = searchBox.getValue();
-                        Path path1 = getConfigFile(Utils.profileName);
-                        Path path2 = getConfigFile(Utils.editedProfileName);
+                        Utils.editedProfileName = debugScreenOptionProfiles$searchBox.getValue();
+                        Path path1 = debugScreenOptionProfiles$getConfigFile(Utils.profileName);
+                        Path path2 = debugScreenOptionProfiles$getConfigFile(Utils.editedProfileName);
                         path1.toFile().renameTo(path2.toFile());
 
                         minecraft.setScreen(new ProfilesScreen(this));
                     }
             ).width(60).build();
-            return doneButton;
+            return debugScreenOptionProfiles$doneButton;
         }
         return instance.build();
     }
 
     @Unique
-    private static Path getConfigFile(String path) {
+    private static Path debugScreenOptionProfiles$getConfigFile(String path) {
         return Utils.getConfigPath().resolve(path + Utils.configFormat);
     }
 }

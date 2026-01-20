@@ -4,18 +4,24 @@ plugins {
     id("java")
 }
 
+fun loadExtraDependencies(project: Project, mcVers: String) {
+    val customPropsFile = project.rootProject.file("vers/$mcVers.properties")
+
+    if (customPropsFile.exists()) {
+        val customProps = Properties().apply {
+            customPropsFile.inputStream().use { load(it) }
+        }
+        customProps.forEach { (key, value) ->
+            project.extra[key.toString()] = value
+        }
+    }
+}
+loadExtraDependencies(project,mod.mc)
+
 base.archivesName.set("${mod.mixin}-$loader")
 version = "${mod.version}+${mod.pub_start}"
 
-java {
-    val java = if (scb.eval(mod.mc, ">=26.1")) JavaVersion.VERSION_25
-    else if (scb.eval(mod.mc, ">=1.20.5")) JavaVersion.VERSION_21
-    else if (scb.eval(mod.mc, ">=1.18")) JavaVersion.VERSION_17
-    else if (scb.eval(mod.mc, ">=1.17")) JavaVersion.VERSION_16
-    else JavaVersion.VERSION_1_8
-    targetCompatibility = java
-    sourceCompatibility = java
-}
+project.extra["loom.platform"] = loader
 
 tasks.processResources {
     properties(
@@ -32,19 +38,12 @@ tasks.processResources {
     )
 }
 
-project.extra["loom.platform"] = loader
-
-fun loadExtraDependencies(project: Project, mcVers: String) {
-    val customPropsFile = project.rootProject.file("vers/$mcVers.properties")
-
-    if (customPropsFile.exists()) {
-        val customProps = Properties().apply {
-            customPropsFile.inputStream().use { load(it) }
-        }
-        customProps.forEach { (key, value) ->
-            project.extra[key.toString()] = value
-        }
-    }
+java {
+    val java = if (scb.eval(mod.mc, ">=26.1")) JavaVersion.VERSION_25
+    else if (scb.eval(mod.mc, ">=1.20.5")) JavaVersion.VERSION_21
+    else if (scb.eval(mod.mc, ">=1.18")) JavaVersion.VERSION_17
+    else if (scb.eval(mod.mc, ">=1.17")) JavaVersion.VERSION_16
+    else JavaVersion.VERSION_1_8
+    targetCompatibility = java
+    sourceCompatibility = java
 }
-
-loadExtraDependencies(project,mod.mc)
