@@ -11,5 +11,4 @@ To open the profiles menu, press the debug screen hotkey (default: ```F3 + F6```
 ## Additional
 
 * Profiles are stored in the ```config/debug-option-profiles folder```.
-* Fabric API is required for mod translation (if available). Otherwise, it is not required.
 * When renaming a profile, there are restrictions on existing names and unsupported characters.
