@@ -11,8 +11,10 @@ pluginManagement {
 }
 
 plugins {
-    id("dev.kikugie.stonecutter") version "0.8.2"
+    id("dev.kikugie.stonecutter") version extra["plg.stonecutter"] as String
 }
+
+rootProject.name = extra["mod.name"] as String
 
 stonecutter {
     create(rootProject) {
@@ -22,5 +24,3 @@ stonecutter {
         match("1.21.10", fb, fr, nf)
     }
 }
-
-rootProject.name = extra["mod.name"] as String
