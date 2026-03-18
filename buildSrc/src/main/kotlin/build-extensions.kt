@@ -1,12 +1,20 @@
 import dev.kikugie.stonecutter.build.StonecutterBuildExtension
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.language.jvm.tasks.ProcessResources
+
+fun String.upperCaseFirst() = replaceFirstChar { if (it.isLowerCase()) it.uppercaseChar() else it }
 
 val Project.mod: ModData get() = ModData(this)
 fun Project.prop(key: String): String? = findProperty(key)?.toString()
 fun Project.dep(key: String): String? = findProperty("dep.$key")?.toString()
-fun String.upperCaseFirst() = replaceFirstChar { if (it.isLowerCase()) it.uppercaseChar() else it }
+fun Project.getProp(key: String) = prop(propName(key))
+fun Project.setProp(key: String, value: Any?) = value.also { extra[versionExactlyProp(key)] = it }
+fun Project.propName(key: String) = if (prop(versionExactlyProp(key)) != null) versionExactlyProp(key) else versionProp(key)
+fun Project.propIf(key: String, fallback: String?) = prop(propName(key)) ?: fallback
+fun Project.versionProp(key: String) = "${mod.mc}.$key"
+fun Project.versionExactlyProp(key: String) = "${mod.mc}-${mod.loader}.$key"
 
 val Project.sc get() = extensions.getByType<StonecutterBuildExtension>()
 val Project.scc get() = sc.current

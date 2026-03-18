@@ -1,0 +1,10 @@
+# Fabric versions see: https://fabricmc.net/develop
+# Forge versions see: https://files.minecraftforge.net
+# NeoForge versions see: https://neoforged.net
+
+["1.21.10"]
+forge="60.1.0"
+neoforge="64"
+fabric_api="0.138.4"
+pub_start="1.21.9"
+pub_end="latest"
