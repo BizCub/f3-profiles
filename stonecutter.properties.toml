@@ -8,3 +8,7 @@ neoforge="64"
 fabric_api="0.138.4"
 pub_start="1.21.9"
 pub_end="latest"
+
+["26.1"]
+version="26.1-pre-2"
+fabric_api="0.143.14"

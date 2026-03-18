@@ -9,6 +9,13 @@ stonecutter {
     properties.tags(version, loader)
     constants.match(mod.loader, "fabric", "forge", "neoforge")
     swaps["mod_id"] = "\"${prop("mod.id")}\";"
+
+    replacements.string(scp >= "26.1") {
+        replace(".render(", ".extractRenderState(")
+        replace(".drawString(", ".text(")
+        replace("renderContent", "extractContent")
+        replace("GuiGraphics", "GuiGraphicsExtractor")
+    }
 }
 
 loom.silentMojangMappingsLicense()
