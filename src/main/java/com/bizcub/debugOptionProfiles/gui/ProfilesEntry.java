@@ -3,7 +3,7 @@ package com.bizcub.debugOptionProfiles.gui;
 import com.bizcub.debugOptionProfiles.Utils;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -63,20 +63,20 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
     }
 
     @Override
-    public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean bl, float tickDelta) {
+    public void extractContent(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, boolean bl, float tickDelta) {
         int posX = this.profilesList.scrollBarX() - this.removebutton.getWidth() - 30;
         int posY = this.getContentY() - 2;
 
         this.removebutton.setPosition(posX, posY);
-        this.removebutton.render(guiGraphics, mouseX, mouseY, tickDelta);
+        this.removebutton.extractRenderState(guiGraphics, mouseX, mouseY, tickDelta);
 
         this.editButton.setPosition(posX - this.editButton.getWidth(), posY);
-        this.editButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+        this.editButton.extractRenderState(guiGraphics, mouseX, mouseY, tickDelta);
 
         this.loadButton.setPosition(posX - this.loadButton.getWidth() * 2, posY);
-        this.loadButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+        this.loadButton.extractRenderState(guiGraphics, mouseX, mouseY, tickDelta);
 
-        guiGraphics.drawString(minecraft.font, this.name, this.getContentX(), this.getContentYMiddle() - 4, -1);
+        guiGraphics.text(minecraft.font, this.name, this.getContentX(), this.getContentYMiddle() - 4, -1);
     }
 
     private ImmutableList getButtons() {

@@ -41,7 +41,7 @@ public abstract class DebugOptionsScreenMixin extends Screen {
     }
 
     //~ if >=26.1 'renderBlurredBackground' -> 'extractBlurredBackground'
-    @Inject(method = "renderBlurredBackground", at = @At("HEAD"))
+    @Inject(method = "extractBlurredBackground", at = @At("HEAD"))
     private void editBoxError(CallbackInfo ci) {
         if (this.debugScreenOptionProfiles$searchBox != null) {
             ArrayList<String> prohibitedSymbols = new ArrayList<>(List.of("\\", "/", ":", "*", "?", "\"", "<", ">", "|"));
