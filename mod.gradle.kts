@@ -7,18 +7,19 @@ val stonecutter = project.extensions.getByType(StonecutterBuildExtension::class.
 project.extensions.configure<MultiLoader>("multiloader") {
     project.afterEvaluate {
         stonecutter.let { sc ->
-//            sc.constants["is_cloth_config_available"] = isClothConfigAvailable
+            sc.replacements {
+                string(scp >= "26.1") {
+                    replace(".render(", ".extractRenderState(")
+                    replace(".drawString(", ".text(")
+                    replace("renderContent", "extractContent")
+                    replace("GuiGraphics", "GuiGraphicsExtractor")
+                }
+            }
         }
     }
 
-//    addRepository("https://maven.shedaniel.me")
-//    addDependency("me.shedaniel.cloth:cloth-config-${mod.loader}:${getProp("cloth_config")}", "api")
-
     if (isFabric) {
-//        addRepository("https://maven.terraformersmc.com/releases")
-
-        addDependency("net.fabricmc:fabric-loader:latest.release", "implementation")
-//        addDependency("com.terraformersmc:modmenu:${getProp("modmenu")}", "api")
+        addDependency("implementation", "net.fabricmc:fabric-loader:latest.release")
     }
 
     if (isNeoForge) {
@@ -26,13 +27,6 @@ project.extensions.configure<MultiLoader>("multiloader") {
     }
 
     project.extensions.configure<ModPublishExtension>("publishMods") {
-        modrinth {
-//            if (isClothConfigAvailable) optional("cloth-config")
-//            if (isFabric) optional("modmenu")
-        }
-        curseforge {
-//            if (isClothConfigAvailable) optional("cloth-config")
-//            if (isFabric) optional("modmenu")
-        }
+
     }
 }
