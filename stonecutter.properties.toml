@@ -3,14 +3,7 @@
 # NeoForge versions see: https://neoforged.net
 
 ["1.21.11"]
-forge="61.1.5"
-neoforge="40-beta"
-fabric_api="0.141.3+1.21.11"
 pub_start="1.21.9"
 
-["26.1.1"]
-forge="63.0.0"
-neoforge="0-beta"
-fabric_api="0.145.2+26.1.1"
-pub_start="26.1"
+["26.1.2"]
 pub_end="latest"
