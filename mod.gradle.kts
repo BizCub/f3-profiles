@@ -27,6 +27,11 @@ project.extensions.configure<MultiLoader>("multiloader") {
     }
 
     project.extensions.configure<ModPublishExtension>("publishMods") {
-
+        modrinth {
+            if (isFabric) requires("fabric-api")
+        }
+        curseforge {
+            if (isFabric) requires("fabric-api")
+        }
     }
 }
