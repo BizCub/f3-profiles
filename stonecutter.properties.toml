@@ -2,8 +2,8 @@
 # Forge versions see: https://files.minecraftforge.net
 # NeoForge versions see: https://neoforged.net
 
-["1.21.11"]
-pub_start="1.21.9"
-
 ["26.1.2"]
 pub_end="latest"
+
+["1.21.11"]
+pub_start="1.21.9"

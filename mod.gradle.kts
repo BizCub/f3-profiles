@@ -1,10 +1,13 @@
 import com.bizcub.multiloader.MultiLoader
 import dev.kikugie.stonecutter.build.StonecutterBuildExtension
-import me.modmuss50.mpp.ModPublishExtension
+
+apply(plugin = "dev.kikugie.fletching-table")
 
 val stonecutter = project.extensions.getByType(StonecutterBuildExtension::class.java)
 
 project.extensions.configure<MultiLoader>("multiloader") {
+    access()
+
     project.afterEvaluate {
         stonecutter.let { sc ->
             sc.replacements {
@@ -22,16 +25,5 @@ project.extensions.configure<MultiLoader>("multiloader") {
         addDependency("implementation", "net.fabricmc:fabric-loader:${getDep("fabric")}")
     }
 
-    if (isNeoForge) {
-        addRepository("https://maven.neoforged.net/releases")
-    }
-
-    project.extensions.configure<ModPublishExtension>("publishMods") {
-        modrinth {
-            if (isFabric) requires("fabric-api")
-        }
-        curseforge {
-            if (isFabric) requires("fabric-api")
-        }
-    }
+    if (isFabric) addPublishDep("requires", "fabric-api")
 }
