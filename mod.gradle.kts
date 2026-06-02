@@ -12,7 +12,7 @@ project.extensions.configure<MultiLoader>("multiloader") {
         stonecutter.let { sc ->
             sc.replacements {
                 string(scp >= "26.2") {
-                    replace(".setScreen(", ".setScreenAndShow(")
+                    replace(".setScreen(", ".gui.setScreen(")
                 }
                 string(scp >= "26.1") {
                     replace(".render(", ".extractRenderState(")
