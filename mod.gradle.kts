@@ -11,6 +11,9 @@ project.extensions.configure<MultiLoader>("multiloader") {
     project.afterEvaluate {
         stonecutter.let { sc ->
             sc.replacements {
+                string(scp >= "26.2") {
+                    replace(".setScreen(", ".setScreenAndShow(")
+                }
                 string(scp >= "26.1") {
                     replace(".render(", ".extractRenderState(")
                     replace(".drawString(", ".text(")
@@ -23,6 +26,7 @@ project.extensions.configure<MultiLoader>("multiloader") {
 
     if (isFabric) {
         addDependency("implementation", "net.fabricmc:fabric-loader:${getDep("fabric")}")
+        addDependency("implementation", "net.fabricmc.fabric-api:fabric-api:${getDep("fabric-api")}")
     }
 
     if (isFabric) addPublishDep("requires", "fabric-api")
