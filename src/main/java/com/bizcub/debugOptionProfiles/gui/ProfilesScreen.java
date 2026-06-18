@@ -40,7 +40,7 @@ public class ProfilesScreen extends OptionsSubScreen {
                                     try {
                                         file.createNewFile();
                                         onClose();
-                                        minecraft.setScreen(new ProfilesScreen(this));
+                                        minecraft.gui.setScreen(new ProfilesScreen(this));
                                     } catch (IOException e) {
                                         throw new RuntimeException(e);
                                     }
@@ -61,7 +61,7 @@ public class ProfilesScreen extends OptionsSubScreen {
     public void onClose() {
         super.onClose();
         Utils.isMyScreenOpen = false;
-        minecraft.setScreen(new DebugOptionsScreen());
+        minecraft.gui.setScreen(new DebugOptionsScreen());
     }
 
     protected void repositionElements() {

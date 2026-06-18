@@ -34,7 +34,7 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
                         (button) -> {
                             Utils.activeButton = name;
                             rewriteMainFile();
-                            minecraft.setScreen(new ProfileEditScreen(minecraft.screen, name, true));
+                            minecraft.gui.setScreen(new ProfileEditScreen(minecraft.gui.screen(), name, true));
                         })
                 .width(20)
                 .build();
@@ -44,7 +44,7 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
                         (button) -> {
                             Utils.activeButton = name;
                             rewriteMainFile();
-                            minecraft.setScreen(new ProfileEditScreen(minecraft.screen, name, false));
+                            minecraft.gui.setScreen(new ProfileEditScreen(minecraft.gui.screen(), name, false));
                         })
                 .width(20)
                 .build();
@@ -53,7 +53,7 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
                         Component.literal("❌"),
                         (button) -> {
                             Utils.getConfigPath().resolve(name.getString() + Utils.configFormat).toFile().delete();
-                            minecraft.setScreen(new ProfilesScreen(minecraft.screen));
+                            minecraft.gui.setScreen(new ProfilesScreen(minecraft.gui.screen()));
                         })
                 .width(20)
                 .build();//~}

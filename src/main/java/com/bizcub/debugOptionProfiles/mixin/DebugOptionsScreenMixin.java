@@ -34,7 +34,7 @@ public abstract class DebugOptionsScreenMixin extends Screen {
         if (!Utils.isMyScreenOpen) {
             this.addRenderableWidget(Button
                     .builder(Utils.getTranslateComponent("profile-edit-screen.presets"),
-                            (button) -> this.minecraft.setScreen(new ProfilesScreen(this)))
+                            (button) -> this.minecraft.gui.setScreen(new ProfilesScreen(this)))
                     .bounds(8, 8, 50, 20)
                     .build());
         }
@@ -88,7 +88,7 @@ public abstract class DebugOptionsScreenMixin extends Screen {
                         Path path2 = debugScreenOptionProfiles$getConfigFile(Utils.editedProfileName);
                         path1.toFile().renameTo(path2.toFile());
 
-                        minecraft.setScreen(new ProfilesScreen(this));
+                        minecraft.gui.setScreen(new ProfilesScreen(this));
                     }
             ).width(60).build();
             return debugScreenOptionProfiles$doneButton;
