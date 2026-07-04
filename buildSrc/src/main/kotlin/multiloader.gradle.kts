@@ -17,6 +17,9 @@ multiloader {
         }
     }
 
+    setMREnvironment(mrEnvs.clientOnly)
+    setCFEnvironment(cfEnvs.client)
+
     if (isFabric) {
         addDependency(
             dependency = "net.fabricmc:fabric-loader:${getDep("fabric")}"
@@ -24,7 +27,7 @@ multiloader {
         addDependency(
             dependency = "net.fabricmc.fabric-api:fabric-api:${getDep("fabric-api")}",
             isPublishDepEnabled = true,
-            publishRequirement = "requires"
+            isPublishDepRequired = true
         )
     }
 }
