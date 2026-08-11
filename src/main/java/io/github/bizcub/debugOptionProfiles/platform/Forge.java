@@ -1,5 +1,5 @@
 //? forge {
-/*package com.bizcub.debugOptionProfiles.platform;
+/*package io.github.bizcub.debugOptionProfiles.platform;
 
 import net.minecraftforge.fml.common.Mod;
 

@@ -1,4 +1,4 @@
-package com.bizcub.debugOptionProfiles;
+package io.github.bizcub.debugOptionProfiles;
 
 import net.minecraft.network.chat.Component;
 

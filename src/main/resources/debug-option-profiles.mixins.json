@@ -1,6 +1,6 @@
 {
     "required": true,
-    "package": "com.bizcub.debugOptionProfiles.mixin",
+    "package": "io.github.bizcub.debugOptionProfiles.mixin",
     "injectors": {
         "defaultRequire": 1
     },

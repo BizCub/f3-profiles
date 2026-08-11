@@ -1,6 +1,6 @@
-package com.bizcub.debugOptionProfiles.gui;
+package io.github.bizcub.debugOptionProfiles.gui;
 
-import com.bizcub.debugOptionProfiles.Utils;
+import io.github.bizcub.debugOptionProfiles.Utils;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;

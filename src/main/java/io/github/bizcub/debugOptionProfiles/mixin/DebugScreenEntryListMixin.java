@@ -1,6 +1,6 @@
-package com.bizcub.debugOptionProfiles.mixin;
+package io.github.bizcub.debugOptionProfiles.mixin;
 
-import com.bizcub.debugOptionProfiles.Utils;
+import io.github.bizcub.debugOptionProfiles.Utils;
 import net.minecraft.client.gui.components.debug.DebugScreenEntryList;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

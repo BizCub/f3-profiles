@@ -1,7 +1,5 @@
 plugins {
-    id("me.modmuss50.mod-publish-plugin")
-    id("dev.kikugie.fletching-table")
-    id("com.bizcub.multiloader")
+    id("io.github.bizcub.multiloader")
 }
 
 multiloader {
@@ -19,6 +17,9 @@ multiloader {
 
     setMREnvironment(mrEnvs.clientOnly)
     setCFEnvironment(cfEnvs.client)
+
+    versionRange("26.2", to = "latest")
+    versionRange("1.21.11", to = "1.21.9")
 
     if (isFabric) {
         addDependency(

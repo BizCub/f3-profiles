@@ -1,7 +1,7 @@
-package com.bizcub.debugOptionProfiles.mixin;
+package io.github.bizcub.debugOptionProfiles.mixin;
 
-import com.bizcub.debugOptionProfiles.Utils;
-import com.bizcub.debugOptionProfiles.gui.ProfilesScreen;
+import io.github.bizcub.debugOptionProfiles.Utils;
+import io.github.bizcub.debugOptionProfiles.gui.ProfilesScreen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
