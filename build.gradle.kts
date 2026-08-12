@@ -19,7 +19,7 @@ multiloader {
     setCFEnvironment(cfEnvs.client)
 
     versionRange("26.2", to = "latest")
-    versionRange("1.21.11", to = "1.21.9")
+    versionRange("1.21.10", to = "1.21.11")
 
     if (isFabric) {
         addDependency(
