@@ -1,7 +1,6 @@
 pluginManagement {
     repositories {
         mavenLocal()
-        mavenCentral()
         gradlePluginPortal()
         maven("https://maven.kikugie.dev/snapshots")
         maven("https://maven.fabricmc.net")
@@ -9,12 +8,5 @@ pluginManagement {
 }
 
 plugins {
-    id("dev.kikugie.stonecutter") version "0.9+"
-    id("io.github.bizcub.multiloader") version "0.8+"
-}
-
-multiloader {
-    match("26.2",   fb, fg, nf)
-    match("26.1.2", fb, fg, nf)
-    match("1.21.10",fb, fg, nf)
+    id("io.github.bizcub.multiloader") version "0.10+"
 }

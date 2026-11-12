@@ -28,7 +28,6 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
         this.name = name;
         this.profilesList = profilesList;
 
-        //~ if >=26.2 '.screen' -> '.gui.screen()' {
         this.loadButton = Button.builder(
                         Component.literal("✔"),
                         (button) -> {
@@ -56,7 +55,7 @@ public class ProfilesEntry extends ContainerObjectSelectionList.Entry<ProfilesEn
                             minecraft.gui.setScreen(new ProfilesScreen(minecraft.gui.screen()));
                         })
                 .width(20)
-                .build();//~}
+                .build();
 
         if (Utils.activeButton.equals(name)) {
             loadButton.active = false;

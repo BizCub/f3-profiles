@@ -40,7 +40,6 @@ public abstract class DebugOptionsScreenMixin extends Screen {
         }
     }
 
-    //~ if >=26.1 'renderBlurredBackground' -> 'extractBlurredBackground'
     @Inject(method = "extractBlurredBackground", at = @At("HEAD"))
     private void editBoxError(CallbackInfo ci) {
         if (this.debugScreenOptionProfiles$searchBox != null) {
